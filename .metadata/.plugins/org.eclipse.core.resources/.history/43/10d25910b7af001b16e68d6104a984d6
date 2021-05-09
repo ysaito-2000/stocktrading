@@ -1,0 +1,59 @@
+package stock;
+
+import java.util.*;
+import java.io.*;
+
+public class Database {
+
+    public ArrayList<DataPoint> getData()
+    {
+        ArrayList<DataPoint> values = new ArrayList<DataPoint>();
+        File input = new File("data/Apple.xlsx");
+        Scanner scan;
+        try
+        {
+            scan = new Scanner(input);
+            scan.nextLine();
+            while(scan.hasNextLine())
+            {
+                String line = scan.nextLine();
+                String[] data = line.split(", ");
+                DataPoint newData = new DataPoint(data[0], Double.parseDouble(data[1]), Double.parseDouble(data[2]), Integer.parseInt(data[3]));
+                values.add(newData);
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e = new FileNotFoundException("File not found");
+            System.out.println(e);
+        }
+        return values;
+    }
+
+    /*
+    public HashSet<Stock> accessData(User u)
+    {
+
+    }
+
+     */
+    public void addStock(Stock s)
+    {
+
+    }
+
+    public void updateStock()
+    {
+
+    }
+
+    public void addUser(User u)
+    {
+
+    }
+
+    public void updateUser(User u)
+    {
+
+    }
+}
