@@ -172,5 +172,19 @@ public class User {
         else System.out.println("Stock could not be sold.");
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return username.hashCode() + password.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof User) {
+            User that = (User)o;
+            return this.password.equals(that.password) && this.username.equals(that.username);
+        }
+        return false;
+    }
 }
 
