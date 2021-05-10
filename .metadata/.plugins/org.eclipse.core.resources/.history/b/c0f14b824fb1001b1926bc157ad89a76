@@ -44,6 +44,13 @@ public class Database {
     	return stockData.get(stock);
     }
 
+    /*
+    public HashSet<Stock> accessData(User u)
+    {
+
+    }
+
+     */
     public void addStock(Stock s)
     {
         stockSet.add(s);
@@ -51,14 +58,19 @@ public class Database {
 
     public void updateStock(String stock, String date, double open, double close, int volume) throws IOException
     {
-    	ArrayList<DataPoint> data = stockData.get(stock);
+    	ArrayList<DataPoint> data = new ArrayList<DataPoint>(stockData.get(stock));
     	DataPoint newData = new DataPoint(date, open,close,volume);
-    	data.add(0, newData); 		
+    	data.add(0, newData); 	
     }
 
     public void addUser(User u)
     {
         userSet.add(u);
+    }
+
+    public void updateUser(User u)
+    {
+
     }
 
     public boolean verifyUser(User u) {

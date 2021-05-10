@@ -4,12 +4,10 @@ import java.util.*;
 import java.io.*;
 
 public class Database {
-  
-	private static Set<User> userSet = new HashSet<>();
+    private static Set<User> userSet = new HashSet<>();
     private static Set<Stock> stockSet = new HashSet<>();
-    private static Map<String, ArrayList<DataPoint>> stockData = new HashMap<>();
-    
-    public void readData(String s) throws IOException
+
+    public ArrayList<DataPoint> getData(String s) throws IOException
     {
         ArrayList<DataPoint> values = new ArrayList<>();
         File input = new File("data/" +s+".txt");
@@ -36,29 +34,34 @@ public class Database {
         }
         fr.close();
         br.close();
-        stockData.put(s,values);
-    }
-    
-    public ArrayList<DataPoint> getData(String stock)
-    {
-    	return stockData.get(stock);
+        return values;
     }
 
+    /*
+    public HashSet<Stock> accessData(User u)
+    {
+
+    }
+
+     */
     public void addStock(Stock s)
     {
         stockSet.add(s);
     }
 
-    public void updateStock(String stock, String date, double open, double close, int volume) throws IOException
+    public void updateStock()
     {
-    	ArrayList<DataPoint> data = stockData.get(stock);
-    	DataPoint newData = new DataPoint(date, open,close,volume);
-    	data.add(0, newData); 		
+
     }
 
     public void addUser(User u)
     {
         userSet.add(u);
+    }
+
+    public void updateUser(User u)
+    {
+
     }
 
     public boolean verifyUser(User u) {
