@@ -9,10 +9,33 @@
         * {
             margin: 0;
             padding: 0;
+            font-family: Verdana, Helvetica;
+        }
+
+        input:focus, textarea:focus, select:focus{
+            outline: none;
+        }
+
+        a:visited, a:link, a:visited, a:active {
+            text-decoration: none;
+            color: whitesmoke;
         }
 
         body {
             background: #272626;
+        }
+
+        #background {
+            width: 100vw;
+            height: 100vh;
+            background-image: url("img/stock.png");
+            background-size: cover;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            opacity: 0.4;
         }
 
         #login {
@@ -44,10 +67,25 @@
             color: black;
         }
 
+        #lgn-username, #lgn-password {
+            background: #F2994A;
+            box-shadow: inset 9px 9px 18px #c27a3b,
+            inset -9px -9px 18px #ffb859;
+        }
+
         #login-form button {
-            font-size: 1.2em;
-            height: 1.8em;
-            width: 19em;
+            font-size: 1em;
+            letter-spacing: .2em;
+            color: rgba(0, 0, 0, 0.8);
+            height: 2em;
+            width: 23em;
+            background: linear-gradient(145deg, #ffa44f, #da8a43);
+        }
+
+        #login-form button:focus {
+            background: #F2994A;
+            box-shadow: inset 9px 9px 18px #c27a3b,
+            inset -9px -9px 18px #ffb859;
         }
 
         #lgn-btn {
@@ -63,7 +101,7 @@
 
         #prof-pic {
             width: 9em;
-            margin-bottom: 2em;
+            margin-bottom: .5em;
         }
 
         #check-forgot {
@@ -95,23 +133,22 @@
     </style>
 </head>
 <body>
+<%--<div id="background"></div>--%>
 <div id="login">
-    <form id="login-form">
+    <form id="login-form" method="post" action="/login">
         <div id="profile-img">
             <img src="img/prof-pic.png" id="prof-pic">
         </div>
-        <input type="text" placeholder="Username" id="lgn-username" required>
-        <input type="text" placeholder="Password" id="lgn-password" required>
+        <input type="text" placeholder="Username" name="username" id="lgn-username" autocomplete="off" required>
+        <input type="password" placeholder="Password" name="password" id="lgn-password" autocomplete="off" required>
         <div class="naked-text" id="check-forgot">
             <input type="checkbox" id="lgn-rmbr" name="remember" value="remember">
             <label for="lgn-rmbr">Remember?</label>
-            <a>Forgot Password?</a>
+            <a href="#">Forgot Password?</a>
         </div>
         <button type="submit" id="lgn-btn">Login</button>
-        <a class="naked-text" id="create-acc">Create an Account?</a>
+        <a href="#" class="naked-text" id="create-acc">Create an Account?</a>
     </form>
 </div>
-
-<a href="portal.jsp">Hello Servlet</a>
 </body>
 </html>
