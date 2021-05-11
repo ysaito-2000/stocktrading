@@ -15,7 +15,8 @@ public class Database{
     public void readData(String s) throws IOException
     {
         ArrayList<DataPoint> values = new ArrayList<>();
-        File input = new File("src/main/java/com/example/csproject/data/" +s+".txt");
+        File input = new File("C:/Users/Yuki/Documents/School/CS 151/csproject/src/main/java/com/example/csproject/data/"+s+".txt");
+
         FileReader fr = new FileReader(input);
         BufferedReader br = new BufferedReader(fr);
         try
@@ -40,11 +41,25 @@ public class Database{
         fr.close();
         br.close();
         stockData.put(s,values);
+
+        DataPoint lastDP = values.get(values.size() - 1);
+
+        Stock last = new Stock(s, s, lastDP.getClose(), lastDP.getVolume());
+        this.addStock(last);
     }
 
     public ArrayList<DataPoint> getData(String stock)
     {
         return stockData.get(stock);
+    }
+
+    public Stock getStock(String stock) {
+        for (Stock i : stockSet) {
+            if (i.getName().equals(stock)) {
+                return i;
+            }
+        }
+        return null;
     }
 
     public void addStock(Stock s)
@@ -80,8 +95,5 @@ public class Database{
         return userSet.contains(i);
     }
 
-    public String getUserDataJSON() {
-        return null;
-    }
 }
 

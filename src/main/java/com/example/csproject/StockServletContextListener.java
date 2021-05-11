@@ -34,8 +34,8 @@ public class StockServletContextListener implements ServletContextListener {
             e.printStackTrace();
         }
 
-
         sce.getServletContext().setAttribute("database", data);
+        sce.getServletContext().setAttribute("currentStock", "Apple");
 
         System.out.println("ServletContextListener started");
     }

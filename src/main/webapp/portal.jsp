@@ -1,4 +1,8 @@
-<%--
+<%@ page import="com.example.csproject.stock.User" %>
+<%@ page import="com.example.csproject.stock.Database" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.csproject.stock.DataPoint" %>
+<%@ page import="java.lang.reflect.Array" %><%--
   Created by IntelliJ IDEA.
   User: Yuki
   Date: 5/8/2021
@@ -59,8 +63,8 @@
             font-size: 1.5em;
             font-weight: bolder;
             width: 75%;
-            padding-top: .3em;
-            padding-bottom: .3em;
+            padding-top: .1em;
+            padding-bottom: .1em;
             border-top: 1px solid #61A6FF;
             border-bottom: 1px solid #61A6FF;
         }
@@ -146,7 +150,6 @@
             padding-top: 3em;
             width: 50vw;
             height: 65vh;
-            border: 1px solid black;
         }
 
         #bottom-bar {
@@ -157,7 +160,7 @@
 
         #bottom-bar div {
             margin-top: 1.8em;
-            margin-left: 2em;
+            margin-left: 1.5em;
             font-size: 1.4em;
         }
 
@@ -173,12 +176,25 @@
             background: none;
         }
 
+        #bottom-bar input {
+            height: 2.5em;
+            width: 4em;
+        }
+
         #btm-bar-buy {
-            margin-left: 5em;
+            padding-left: 14em;
+        }
+
+        #btm-bar-shares, #btm-bar-profit {
+            display: inherit;
+            flex-direction: row;
+        }
+
+        #user-shares, #user-profit {
+            margin-left: 1em;
         }
 
         #right-bar {
-            border: 1px solid black;
             margin-left: auto;
             margin-right: auto;
             margin-top: 6em;
@@ -196,46 +212,55 @@
         #remind-radio {
             margin-top: 1em;
         }
+
+        #price-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2em;
+        }
+
     </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        let httpRequest = new XMLHttpRequest();
-        let url = 'localhost:8080/PortalHelperServlet';
-        var params = 'orem=ipsum&name=binny';
-        http.open('POST', url, true);
+        let stockData = JSON.parse(`${stockJSON}`);
 
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        let formattedStockData = [];
 
-        http.onreadystatechange = function() {//Call a function when the state changes.
-            if(http.readyState == 4 && http.status == 200) {
-                alert(http.responseText);
-            }
+        for (let i in stockData) {
+            let dataPoint = stockData[i];
+            formattedStockData.push([dataPoint.date, dataPoint.close]);
         }
-        http.send(params);
 
+        google.charts.load('current', {'packages':['corechart', 'scatter']});
+        google.charts.setOnLoadCallback(drawChart);
 
+        function drawChart() {
+            let data = new google.visualization.DataTable();
 
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+            data.addColumn("string", "Date");
+            data.addColumn("number", "Close");
 
-            function drawChart() {
-                let data = google.visualization.arrayToDataTable([
-                    ['Year', 'Sales', 'Expenses'],
-                    ['2004', 1000, 400],
-                    ['2005', 1170, 460],
-                    ['2006', 660, 1120],
-                    ['2007', 1030, 540]
-                ]);
+            data.addRows(formattedStockData)
 
-                let options = {
-                    title: 'Apple',
-                    legend: {position: 'bottom'}
-                };
+            let options = {
+                title: 'Apple',
+                width: 1000,
+                height: 600,
+                series: {
+                    1: {axis: "close"}
+                },
+                axes: {
+                    y: {
+                        "price": { label: "Price/Stock"}
+                    }
+                },
+                legend: {position: 'bottom'}
+            };
 
-                let chart = new google.visualization.LineChart(document.getElementById('chart'));
-            }
-            chart.draw(data, options);
+            let materialChart = new google.charts.Scatter(document.getElementById('chart'));
+            materialChart.draw(data, google.charts.Scatter.convertOptions(options));
+        }
     </script>
 </head>
 <body>
@@ -274,54 +299,73 @@
             <div id="content">
                 <div id="center-content">
                     <div id="graph">
-                        <p>Insert Graph Here</p>
                         <div id="chart" style="width: 900px; height: 500px"></div>
                     </div>
                     <div id="bottom-bar">
                         <div id="btm-bar-shares">
                             <p>Shares:</p>
-                            <div id="user-shares">
-
-                            </div>
+                            <p id="user-shares">0</p>
                         </div>
                         <div id="btm-bar-profit">
                             <p>Profit:</p>
-                            <div id="user-profit">
-
-                            </div>
+                            <p id="user-profit">0</p>
                         </div>
                         <div id="btm-bar-buy">
-                            <form method="post" action="/portal">
+                            <form method="post" action="/buysellservlet">
                                 <label for="buy"><button type="submit">Buy</button></label>
-                                <input type="number" name="buy" id="buy">
-                            </form>
-                        </div>
-                        <div id="btm-bar-sell">
-                            <form method="post" action="/portal">
+                                <input type="number" min="0" name="buy" id="buy" value="0.0">
                                 <label for="sell"><button type="submit">Sell</button></label>
-                                <input type="number" name="sell" id="sell">
+                                <input type="number" min="0" name="sell" id="sell" value="0.0">
                             </form>
                         </div>
-
                     </div>
                 </div>
                 <div id="right-bar">
                     <p>Set Reminders</p>
-                    <form method="post" action="/portal">
+                    <form method="post" action="/reminderservlet">
                         <div id="remind-radio">
-                            <input type="radio" id="remind-buy" name="remind-buy" value="remind-buy">
+                            <input type="radio" id="remind-buy" name="remind" value="remind-buy" checked>
                             <label for="remind-buy">Buy</label>
-                            <input type="radio" id="remind-sell" name="remind-sell" value="remind-sell">
+                            <input type="radio" id="remind-sell" name="remind" value="remind-sell">
                             <label for="remind-sell">Sell</label>
                         </div>
                         <label for="stock-amount">Stock Amount</label>
-                        <input type="number" name="stock-price" id="stock-amount"><br>
+                        <input type="number" name="stock-amount" id="stock-amount" min="0" value="0.0"><br>
                         <label for="stock-price">Stock Price</label>
-                        <input type="number" name="stock-price" id="stock-price">
+                        <input type="number" name="stock-price" id="stock-price" min="0" value="0">
+                        <button type="submit">Submit</button>
                     </form>
+
+                    <div>
+                        <p>Notifications</p>
+                        <p id="notifs"></p>
+                    </div>
+
+                    <div id="price-input">
+                        <p>Input Price</p>
+                        <form method="post" action="/updatestockservlet">
+                            <label for="new-stock-price">Stock Price</label>
+                            <input type="number" name="new-stock-price" min="0" value="0.0" id="new-stock-price"><br>
+                            <label for="new-stock-date">Date (DD-Month-YY)</label>
+                            <input type="text" name="new-stock-date" id="new-stock-date">
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+<script>
+    let shouldBuy = `${shouldBuy}`;
+    let shouldSell = `${shouldSell}`;
+
+    if (shouldBuy == "true") {
+        document.getElementById('notifs').innerHTML += "<p>You Should Have Bought!</p>"
+    }
+
+    if (shouldSell == "true") {
+        document.getElementById('notifs').innerHTML += "<p>You Should Have Sold!</p>"
+    }
+</script>
 </body>
 </html>

@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import javax.servlet.ServletException;
 
+/*
+*   Servlet mapped to url + /login
+*/
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     /*
@@ -16,6 +19,9 @@ public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("A login get request was made");
 
+        /*
+        *   Users redirected to index.jsp (i.e. home/login page)
+        */
         getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
 
@@ -28,17 +34,30 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("A login post request was made");
 
+        /*
+        *   Login information taken from client
+        */
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        /*
+        *   Grab global variable Database from ServletContext
+        *   Get user from database
+        */
         Database database = (Database) getServletContext().getAttribute("database");
         User currentUser = database.getUser(username, password);
 
-
         if (!database.verifyUser(currentUser)) {
+            /*
+            *   Send user back to login page
+            */
             request.setAttribute("error", "Invalid Username and/or Password");
             doGet(request, response);
         } else {
+            /*
+            *   Store User in global context
+            *   Move control to PortalServlet
+            */
             getServletContext().setAttribute("currentUser", currentUser);
             getServletContext().getRequestDispatcher("/portal").forward(request,response);
         }

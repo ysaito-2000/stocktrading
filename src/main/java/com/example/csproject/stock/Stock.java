@@ -3,7 +3,7 @@ package com.example.csproject.stock;
 public class Stock {
 
     String symbol;
-    Float price;
+    double price;
     String name;
     int volume;
 
@@ -14,7 +14,7 @@ public class Stock {
      * @param price stock price
      * @param volume stock volume
      */
-    public Stock (String symbol, String name, Float price, int volume)
+    public Stock (String symbol, String name, double price, int volume)
     {
         this.symbol = symbol;
         this.name = name;
@@ -51,9 +51,9 @@ public class Stock {
 
     /**
      * getter for stock price
-     * @return float the stock price
+     * @return double the stock price
      */
-    public float getPrice()
+    public double getPrice()
     {
         return price;
     }

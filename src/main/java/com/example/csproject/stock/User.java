@@ -11,8 +11,8 @@ public class User {
     private static Set<Stock> watchlist = new HashSet<>();
     private static Set<Stock> ownedSet = new HashSet<>();
     private static Map<Stock, Double> amountOwned = new HashMap<>();
-    private static Map<Stock, Float> remindBuy = new HashMap<>();
-    private static Map<Stock, Float> remindSell = new HashMap<>();
+    private static Map<Stock, Double> remindBuy = new HashMap<>();
+    private static Map<Stock, Double> remindSell = new HashMap<>();
 
     public User(String username, String password)
     {
@@ -51,6 +51,14 @@ public class User {
 
     public Map<Stock, Double> getAmountOwned() {
         return amountOwned;
+    }
+
+    public Double getRemindBuyPrice(Stock i) { return remindBuy.get(i); }
+
+    public Double getRemindSellPrice(Stock i) { return remindSell.get(i); }
+
+    public static Set<Stock> getOwnedSet() {
+        return ownedSet;
     }
 
     /**
@@ -107,7 +115,7 @@ public class User {
      * @param s The stock to set a buy price to
      * @param price The price the stock should be bought
      */
-    public void setBuyPrice(Stock s, float price) {
+    public void setBuyPrice(Stock s, double price) {
         remindBuy.put(s, price);
     }
 
@@ -116,7 +124,7 @@ public class User {
      * @param s The stock to set a sell price to
      * @param price The price the stock should be sold
      */
-    public void setSellPrice(Stock s, float price) {
+    public void setSellPrice(Stock s, double price) {
         remindSell.put(s, price);
     }
 
