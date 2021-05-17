@@ -1,6 +1,10 @@
 package com.example.csproject.stock;
 import java.util.*;
 
+/**
+ * Object representing a user. Contains username, password, balance, and various Sets and Maps representing the user's
+ * owned stocks, watchlist, amount of stocks owned, and reminders for buying and selling those stocks.
+ */
 public class User {
 
     private String username;
@@ -14,6 +18,11 @@ public class User {
     private static Map<Stock, Double> remindBuy = new HashMap<>();
     private static Map<Stock, Double> remindSell = new HashMap<>();
 
+    /**
+     * Constructor User object. Takes in a username and password. Has a default balance of 1000.
+     * @param username
+     * @param password
+     */
     public User(String username, String password)
     {
         this.username = username;
@@ -21,42 +30,84 @@ public class User {
         this.balance = 1000;
     }
 
+    /**
+     * Setter for a User's username
+     * @param u The new username.
+     */
     public void changeUsername(String u)
     {
         this.username = u;
     }
 
+    /**
+     * A setter for a User's password.
+     * @param p The new password.
+     */
     public void changePassword(String p)
     {
         this.password = p;
     }
 
+    /**
+     * Getter for a user's username.
+     * @return  The user's current username.
+     */
     public String getUsername()
     {
         return username;
     }
 
+    /**
+     * Getter for a user's password.
+     * @return  The user's current password.
+     */
     public String getPassword()
     {
         return password;
     }
 
+    /**
+     * Getter for a user's balance.
+     * @return  The user's current balance.
+     */
     public float getBalance() {
         return balance;
     }
 
+    /**
+     * Getter for a user's watchlist.
+     * @return  The user's watchlist.
+     */
     public Set<Stock> getWatchlist() {
         return watchlist;
     }
 
+    /**
+     * Getter for the user's amountOwned HashMap.
+     * @return  The user's HashMap.
+     */
     public Map<Stock, Double> getAmountOwned() {
         return amountOwned;
     }
 
+    /**
+     * Getter for the user's remind buy price for the passed in stock.
+     * @param i The stock to get the remind price of.
+     * @return  The price the user should be reminded to purchase the stock.
+     */
     public Double getRemindBuyPrice(Stock i) { return remindBuy.get(i); }
 
+    /**
+     * Getter for the user's remind sell price for the passed in stock.
+     * @param i The stock to get the remind price of.
+     * @return  The price the user should be reminded to sell the stock.
+     */
     public Double getRemindSellPrice(Stock i) { return remindSell.get(i); }
 
+    /**
+     * Getter for the HashSet which contains the stocks that the user owns.
+     * @return  The Hashset of stocks that the user owns.
+     */
     public static Set<Stock> getOwnedSet() {
         return ownedSet;
     }
@@ -181,11 +232,21 @@ public class User {
         return false;
     }
 
+    /**
+     * Generates the hashcode based off the sum of the username's and password's hashcode.
+     * @return  The sum of the username and password's hashcode.
+     */
     @Override
     public int hashCode() {
         return username.hashCode() + password.hashCode();
     }
 
+    /**
+     * Compares the passed in object with this object for equality.
+     * @param o The object to compare this to.
+     * @return If the passed in object is an instance of User, and the password and username matches that of
+     *         this User, returns true. Returns false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof User) {

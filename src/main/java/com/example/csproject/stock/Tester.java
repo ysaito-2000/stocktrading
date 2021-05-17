@@ -2,6 +2,9 @@ package com.example.csproject.stock;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Tester class used for testing various components and classes.
+ */
 public class Tester {
 
     public static void main(String[] args) throws IOException {

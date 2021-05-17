@@ -1,5 +1,8 @@
 package com.example.csproject.stock;
 
+/**
+ * An object that represents a stock. Contains a symbol, name, price, and volume.
+ */
 public class Stock {
 
     String symbol;
@@ -86,8 +89,8 @@ public class Stock {
     }
 
     /**
-     *
-     * @return
+     * getter for the stock's volume
+     * @return  Returns the volume of the stock.
      */
     public int getVolume()
     {
