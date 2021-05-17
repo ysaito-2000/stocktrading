@@ -12,11 +12,15 @@ import java.util.ArrayList;
 
 @WebServlet(name = "UpdateStockServlet", value = "/updatestockservlet")
 public class UpdateStockServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-
+    /*
+     *  @param request  Object embodiment of POST request
+     *  @param response Object embodiment of server response to request
+     *
+     *  Temporary function to update value of the current stock
+     *
+     *  @return portal page
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double price = Double.parseDouble((String) request.getParameter("new-stock-price"));
