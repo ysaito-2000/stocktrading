@@ -10,11 +10,15 @@ import java.util.Enumeration;
 
 @WebServlet(name = "BuySellServlet", value = "/buysellservlet")
 public class BuySellServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-
+    /*
+     *   @param request  Object embodiment of POST request
+     *   @param response Object embodiment of server response to request
+     *
+     *   Updates User data on amount of current stock owned
+     *
+     *   @return directs User to portal page
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double amountBought = Double.parseDouble((String) request.getParameter("buy"));

@@ -18,16 +18,17 @@ import java.util.Collections;
  */
 @WebServlet(name = "PortalServlet", value = "/portal")
 public class PortalServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("A portal get request was made");
-    }
-
+    /*
+     *   @param request  Object embodiment of POST request
+     *   @param response Object embodiment of server response to request
+     *
+     *   Sets currently selected stock as a global variable via JSON format
+     *   Checks if User has buy/sell limits on the selected stock
+     *
+     *   @return directs User to portal page
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("A portal post request was made");
-
-        // Insert code to get information from database
         Database database = (Database) getServletContext().getAttribute("database");
         User currentUser = (User) getServletContext().getAttribute("currentUser");
         String currentStock = (String) getServletContext().getAttribute("currentStock");
@@ -37,6 +38,8 @@ public class PortalServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(stockData);
         getServletContext().setAttribute("stockJSON", jsonString);
+
+        Collections.reverse(stockData);
 
         Double buyPrice = currentUser.getRemindBuyPrice(database.getStock(currentStock));
         Double sellPrice = currentUser.getRemindSellPrice(database.getStock(currentStock));

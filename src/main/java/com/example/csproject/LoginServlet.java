@@ -14,22 +14,22 @@ import javax.servlet.ServletException;
 @WebServlet(name = "loginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
     /*
-    *  Processes GET requests to login page, returns login page
-    */
+     *  @param request  Object embodiment of POST request
+     *  @param response Object embodiment of server response to request
+     *  @return directs User to login page
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("A login get request was made");
-
-        /*
-        *   Users redirected to index.jsp (i.e. home/login page)
-        */
         getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
 
     /*
-     *  Processes POST requests to login page, determines if user
-     *  returns to login page or proceeds to portal
+     *  @param request  Object embodiment of POST request
+     *  @param response Object embodiment of server response to request
      *
-     *  Passes control to PortalServlet to process user information
+     *  Determines if User is contained within database
+     *  Sets valid Users as global objects
+     *
+     *  @return portal page
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("A login post request was made");

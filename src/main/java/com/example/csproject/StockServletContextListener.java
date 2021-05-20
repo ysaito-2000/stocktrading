@@ -9,8 +9,8 @@ import java.io.IOException;
 public class StockServletContextListener implements ServletContextListener {
 
     /*
-     *   Destroys context (i.e. public variables accessible by servlets)
-     *   Is ran on tomcat shutdown.
+     *  @param sce ServletContextEvent object made upon Server creation
+     *  Destroys context (i.e. public variables accessible by servlets) on shutdown
      */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
@@ -18,12 +18,11 @@ public class StockServletContextListener implements ServletContextListener {
     }
 
     /*
-    *   Generates context (i.e. public variables accessible by servlets)
-    *   Is ran on tomcat startup.
+    *   @param sce ServletContextEvent object made upon Server creation
+    *   Generates context (i.e. public variables accessible by servlets) on startup
     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
         Database data = new Database();
 
         try {

@@ -11,10 +11,15 @@ import java.io.IOException;
 
 @WebServlet(name = "ReminderServlet", value = "/reminderservlet")
 public class ReminderServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
 
+    /*
+     *  @param request  Object embodiment of POST request
+     *  @param response Object embodiment of server response to request
+     *
+     *  Sets buy/sell reminds for the User
+     *
+     *  @return portal page
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double amount = Double.parseDouble(request.getParameter("stock-amount"));
