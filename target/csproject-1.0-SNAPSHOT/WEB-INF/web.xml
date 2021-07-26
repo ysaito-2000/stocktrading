@@ -7,7 +7,7 @@
 >
     <listener>
         <listener-class>
-            com.example.csproject.StockServletContextListener
+            com.stockwatch.StockServletContextListener
         </listener-class>
     </listener>
 </web-app>

@@ -14,6 +14,10 @@
           <element id="module-output" name="csproject" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.1" />
+          <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.1.0" />
+          <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.2.0" />
+          <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.7.1" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0.pr2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0.pr2" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0.pr2" />

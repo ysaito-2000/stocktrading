@@ -1,7 +1,7 @@
-<%@ page import="com.example.csproject.stock.User" %>
-<%@ page import="com.example.csproject.stock.Database" %>
+<%@ page import="com.stockwatch.stock.User" %>
+<%@ page import="com.stockwatch.stock.Database" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.csproject.stock.DataPoint" %>
+<%@ page import="com.stockwatch.stock.DataPoint" %>
 <%@ page import="java.lang.reflect.Array" %><%--
   Created by IntelliJ IDEA.
   User: Yuki
